@@ -1,14 +1,18 @@
 package com.springrestAPI.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "student")
+@Table(name = "student",schema = "student_app")
 public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +25,17 @@ public class Student {
 	private String branch;
 	@Column(name = "recordstatus")
 	private String recordstatus;
-
+	@Column(name = "created_on",updatable = false)
+	private LocalDateTime created_on;
+	@NotNull
+	@Column (name ="api_request_ID", nullable = false)
+	private int api_request_ID;
+	
+	@PrePersist
+	public void setCreatedon() {
+		this.created_on= LocalDateTime.now();
+	}
+    
 	public Student() {
 		// TODO Auto-generated constructor stub
 	}
