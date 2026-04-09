@@ -35,7 +35,7 @@ public class StudentsController {
 	@GetMapping("/Student/{id}")
 	public Student getStudent(@PathVariable int id) {
 		Optional<Student> Studentopt = repo.findById(id);
-		
+		// add the validation
 		if (Studentopt.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student not found");
 		}	
